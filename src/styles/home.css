@@ -1,0 +1,25 @@
+.banner-container {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.banner-title {
+  color: white;
+  max-width: 900px;
+  font-size: 3rem;
+  text-align: center;
+  margin: 0;
+}
+
+.banner-subtitle {
+  color: white;
+  max-width: 900px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+}
