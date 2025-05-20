@@ -5,9 +5,11 @@ export default function loadMenu() {
   const title = document.createElement("h2");
   title.textContent = "Nosso Cardápio";
   title.style.color = "white";
+  title.classList.add("title");
 
   const item = document.createElement("p");
   item.textContent = "🍔 X-Burger - R$ 25,00";
+  item.classList.add("item-p");
 
   menuDiv.appendChild(title);
   menuDiv.appendChild(item);
