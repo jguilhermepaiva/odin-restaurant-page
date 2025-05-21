@@ -2,16 +2,28 @@
 
 set -e
 
-echo "🔄 Mudando para a branch principal..."
-git checkout main
-
-echo "📦 Gerando nova build..."
+echo "📦 Gerando nova build com Webpack..."
 npx webpack
 
-echo "🧹 Apagando branch gh-pages remota (caso exista)..."
-git push origin --delete gh-pages || true
+echo "🌳 Adicionando worktree temporário para gh-pages..."
+rm -rf temp-deploy
+git worktree add temp-deploy gh-pages || git worktree add -B gh-pages temp-deploy origin/gh-pages
 
-echo "🚀 Publicando nova versão com git subtree..."
-git subtree push --prefix dist origin gh-pages
+echo "🧹 Limpando conteúdo anterior da branch gh-pages..."
+rm -rf temp-deploy/*
 
-echo "✅ Deploy finalizado!"
+echo "📁 Copiando arquivos da pasta dist para o worktree..."
+cp -r dist/* temp-deploy/
+
+cd temp-deploy
+
+echo "📤 Commitando e enviando para a branch gh-pages..."
+git add .
+git commit -m 'Deploy atualizado'
+git push origin gh-pages
+
+cd ..
+echo "🧼 Limpando worktree temporário..."
+git worktree remove temp-deploy
+
+echo "✅ Deploy concluído com sucesso!"
